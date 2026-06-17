@@ -1,0 +1,267 @@
+{
+  "metadata": {
+    "law_id": "MsbG",
+    "law_name": "Messstellenbetriebsgesetz",
+    "english_name": "Metering Point Operation Act",
+    "jurisdiction": "Germany",
+    "knowledge_base_version": "1.0",
+    "primary_topics": [
+      "smart_meters",
+      "intelligent_metering_systems",
+      "metering_point_operation",
+      "smart_meter_gateway",
+      "energy_digitalization",
+      "grid_flexibility"
+    ]
+  },
+
+  "objectives": [
+    {
+      "id": "OBJ_001",
+      "name": "digitalization_of_energy_transition"
+    },
+    {
+      "id": "OBJ_002",
+      "name": "secure_metering"
+    },
+    {
+      "id": "OBJ_003",
+      "name": "data_protection"
+    },
+    {
+      "id": "OBJ_004",
+      "name": "grid_flexibility"
+    },
+    {
+      "id": "OBJ_005",
+      "name": "renewable_integration"
+    }
+  ],
+
+  "definitions": [
+    {
+      "id": "modern_meter",
+      "german": "moderne Messeinrichtung",
+      "abbreviation": "mME",
+      "description": "Digital electricity meter without gateway communication"
+    },
+    {
+      "id": "smart_meter_gateway",
+      "german": "Smart-Meter-Gateway",
+      "abbreviation": "SMGW",
+      "description": "Secure communication unit connecting meters and energy market participants"
+    },
+    {
+      "id": "intelligent_metering_system",
+      "german": "intelligentes Messsystem",
+      "abbreviation": "iMSys",
+      "description": "Modern meter combined with certified Smart Meter Gateway"
+    },
+    {
+      "id": "metering_point_operator",
+      "german": "Messstellenbetreiber",
+      "abbreviation": "MSB"
+    },
+    {
+      "id": "default_metering_point_operator",
+      "german": "grundzuständiger Messstellenbetreiber",
+      "abbreviation": "gMSB"
+    }
+  ],
+
+  "metering_hierarchy": {
+    "level_1": {
+      "device": "modern_meter",
+      "communication": false
+    },
+    "level_2": {
+      "device": "intelligent_metering_system",
+      "communication": true,
+      "gateway_required": true
+    }
+  },
+
+  "smart_meter_rollout": [
+    {
+      "rule_id": "MSBG_ROLLOUT_001",
+      "topic": "mandatory_rollout",
+      "requirement": {
+        "rollout_required": true
+      }
+    },
+    {
+      "rule_id": "MSBG_ROLLOUT_002",
+      "topic": "consumer_above_6000_kwh",
+      "condition": {
+        "annual_consumption_kwh": ">6000"
+      },
+      "requirement": {
+        "imsys_required": true
+      }
+    },
+    {
+      "rule_id": "MSBG_ROLLOUT_003",
+      "topic": "small_consumers",
+      "condition": {
+        "annual_consumption_kwh": "<=6000"
+      },
+      "requirement": {
+        "modern_meter_sufficient": true
+      }
+    }
+  ],
+
+  "pv_specific_rules": [
+    {
+      "rule_id": "MSBG_PV_001",
+      "topic": "pv_above_7kw",
+      "condition": {
+        "pv_capacity_kw": ">7"
+      },
+      "requirement": {
+        "imsys_required": true
+      }
+    },
+    {
+      "rule_id": "MSBG_PV_002",
+      "topic": "renewable_integration",
+      "requirement": {
+        "gateway_connectable": true
+      }
+    },
+    {
+      "rule_id": "MSBG_PV_003",
+      "topic": "remote_metering",
+      "requirement": {
+        "remote_reading_allowed": true
+      }
+    }
+  ],
+
+  "section_14a_interaction": [
+    {
+      "rule_id": "MSBG_14A_001",
+      "topic": "controllable_devices",
+      "requirement": {
+        "smart_meter_required": true
+      }
+    },
+    {
+      "rule_id": "MSBG_14A_002",
+      "topic": "heat_pump",
+      "eligible_for_control": true
+    },
+    {
+      "rule_id": "MSBG_14A_003",
+      "topic": "ev_charger",
+      "eligible_for_control": true
+    },
+    {
+      "rule_id": "MSBG_14A_004",
+      "topic": "battery_storage",
+      "eligible_for_control": true
+    }
+  ],
+
+  "gateway_requirements": [
+    {
+      "rule_id": "MSBG_GATEWAY_001",
+      "topic": "bsi_certification",
+      "requirement": {
+        "certification_required": true
+      }
+    },
+    {
+      "rule_id": "MSBG_GATEWAY_002",
+      "topic": "data_security",
+      "requirement": {
+        "secure_communication_required": true
+      }
+    },
+    {
+      "rule_id": "MSBG_GATEWAY_003",
+      "topic": "interoperability",
+      "requirement": {
+        "interoperability_required": true
+      }
+    }
+  ],
+
+  "metering_point_operator_rules": [
+    {
+      "rule_id": "MSBG_MSB_001",
+      "topic": "meter_installation",
+      "requirement": {
+        "operator_responsible": true
+      }
+    },
+    {
+      "rule_id": "MSBG_MSB_002",
+      "topic": "meter_operation",
+      "requirement": {
+        "operator_responsible": true
+      }
+    },
+    {
+      "rule_id": "MSBG_MSB_003",
+      "topic": "gateway_administration",
+      "requirement": {
+        "operator_responsible": true
+      }
+    }
+  ],
+
+  "data_protection": [
+    {
+      "rule_id": "MSBG_PRIVACY_001",
+      "topic": "privacy",
+      "requirement": {
+        "privacy_protection_required": true
+      }
+    },
+    {
+      "rule_id": "MSBG_PRIVACY_002",
+      "topic": "secure_data_transfer",
+      "requirement": {
+        "encrypted_communication_required": true
+      }
+    },
+    {
+      "rule_id": "MSBG_PRIVACY_003",
+      "topic": "data_minimization",
+      "requirement": {
+        "minimum_necessary_data": true
+      }
+    }
+  ],
+
+  "cost_rules": [
+    {
+      "rule_id": "MSBG_COST_001",
+      "topic": "regulated_price_caps",
+      "requirement": {
+        "price_caps_exist": true
+      }
+    },
+    {
+      "rule_id": "MSBG_COST_002",
+      "topic": "mandatory_installation",
+      "requirement": {
+        "regulated_cost_model": true
+      }
+    }
+  ],
+
+  "decision_engine_questions": [
+    "Do I need a smart meter?",
+    "Does my PV system require an iMSys?",
+    "What is a Smart Meter Gateway?",
+    "Can my PV system be remotely measured?",
+    "Can my battery be controlled by the grid?",
+    "Do I need a smart meter for a heat pump?",
+    "Do I need a smart meter for an EV charger?",
+    "Who pays for the smart meter?",
+    "Who operates the metering point?",
+    "What are the privacy requirements?"
+  ]
+}

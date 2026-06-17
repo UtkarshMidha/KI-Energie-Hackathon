@@ -1,0 +1,282 @@
+{
+  "metadata": {
+    "id": "ROOF_ASSESSMENT",
+    "name": "Roof Suitability Assessment Engine",
+    "version": "1.0",
+    "jurisdiction": "Germany"
+  },
+
+  "definitions": [
+    {
+      "id": "gross_roof_area",
+      "unit": "m2"
+    },
+    {
+      "id": "usable_roof_area",
+      "unit": "m2"
+    },
+    {
+      "id": "roof_orientation"
+    },
+    {
+      "id": "roof_pitch"
+    },
+    {
+      "id": "shading_factor"
+    }
+  ],
+
+  "roof_types": [
+    {
+      "id": "gable",
+      "german": "Satteldach",
+      "pv_suitability": "excellent"
+    },
+    {
+      "id": "shed",
+      "german": "Pultdach",
+      "pv_suitability": "excellent"
+    },
+    {
+      "id": "hip",
+      "german": "Walmdach",
+      "pv_suitability": "good"
+    },
+    {
+      "id": "flat",
+      "german": "Flachdach",
+      "pv_suitability": "good"
+    },
+    {
+      "id": "mansard",
+      "german": "Mansarddach",
+      "pv_suitability": "moderate"
+    }
+  ],
+
+  "orientation_scores": {
+    "south": 100,
+    "south_east": 95,
+    "south_west": 95,
+    "east": 85,
+    "west": 85,
+    "north_east": 55,
+    "north_west": 55,
+    "north": 40
+  },
+
+  "pitch_scores": [
+    {
+      "pitch_deg": 0,
+      "score": 90
+    },
+    {
+      "pitch_deg": 10,
+      "score": 95
+    },
+    {
+      "pitch_deg": 20,
+      "score": 98
+    },
+    {
+      "pitch_deg": 30,
+      "score": 100
+    },
+    {
+      "pitch_deg": 35,
+      "score": 100
+    },
+    {
+      "pitch_deg": 40,
+      "score": 98
+    },
+    {
+      "pitch_deg": 50,
+      "score": 92
+    },
+    {
+      "pitch_deg": 60,
+      "score": 85
+    }
+  ],
+
+  "shading_scores": {
+    "none": 100,
+    "light": 90,
+    "moderate": 75,
+    "heavy": 50
+  },
+
+  "usable_area_rules": [
+    {
+      "roof_type": "gable",
+      "utilization_factor": 0.8
+    },
+    {
+      "roof_type": "shed",
+      "utilization_factor": 0.85
+    },
+    {
+      "roof_type": "hip",
+      "utilization_factor": 0.7
+    },
+    {
+      "roof_type": "flat",
+      "utilization_factor": 0.75
+    }
+  ],
+
+  "obstacle_deductions": [
+    {
+      "obstacle": "chimney",
+      "area_loss_m2": 2
+    },
+    {
+      "obstacle": "roof_window",
+      "area_loss_m2": 2
+    },
+    {
+      "obstacle": "dormer",
+      "area_loss_m2": 4
+    },
+    {
+      "obstacle": "ventilation_unit",
+      "area_loss_m2": 1
+    },
+    {
+      "obstacle": "satellite_dish",
+      "area_loss_m2": 1
+    }
+  ],
+
+  "capacity_estimation": {
+    "panel_power_wp": 450,
+    "panel_area_m2": 2.0,
+    "formula": "(usable_area / panel_area) * panel_power"
+  },
+
+  "yield_factors": {
+    "north_germany": 900,
+    "central_germany": 950,
+    "south_germany": 1050
+  },
+
+  "regional_mapping": {
+    "lower_saxony": "north_germany",
+    "hamburg": "north_germany",
+    "bremen": "north_germany",
+    "hesse": "central_germany",
+    "nrw": "central_germany",
+    "bavaria": "south_germany",
+    "baden_wuerttemberg": "south_germany"
+  },
+
+  "mounting_system_rules": [
+    {
+      "roof_type": "pitched_roof",
+      "mounting_system": "rail_system"
+    },
+    {
+      "roof_type": "flat",
+      "mounting_system": "ballasted_mounting"
+    }
+  ],
+
+  "structural_rules": [
+    {
+      "rule_id": "STRUCT_001",
+      "if": {
+        "roof_age_years": {
+          "gt": 40
+        }
+      },
+      "recommendation": {
+        "structural_assessment": true
+      }
+    },
+    {
+      "rule_id": "STRUCT_002",
+      "if": {
+        "roof_condition": "poor"
+      },
+      "recommendation": {
+        "roof_renovation_first": true
+      }
+    }
+  ],
+
+  "suitability_classification": [
+    {
+      "score_min": 90,
+      "classification": "excellent"
+    },
+    {
+      "score_min": 75,
+      "classification": "good"
+    },
+    {
+      "score_min": 60,
+      "classification": "acceptable"
+    },
+    {
+      "score_min": 40,
+      "classification": "poor"
+    },
+    {
+      "score_min": 0,
+      "classification": "not_recommended"
+    }
+  ],
+
+  "economic_assessment": [
+    {
+      "rule_id": "ECO_001",
+      "if": {
+        "annual_yield_kwh_per_kwp": {
+          "gte": 850
+        }
+      },
+      "classification": "economically_viable"
+    },
+    {
+      "rule_id": "ECO_002",
+      "if": {
+        "annual_yield_kwh_per_kwp": {
+          "lt": 750
+        }
+      },
+      "classification": "marginal"
+    }
+  ],
+
+  "risk_factors": [
+    "heavy_shading",
+    "north_orientation",
+    "poor_roof_condition",
+    "heritage_protection",
+    "firewall_constraints",
+    "large_number_of_obstacles"
+  ],
+
+  "assessment_output_schema": {
+    "roof_suitability_score": "0-100",
+    "classification": "excellent|good|acceptable|poor|not_recommended",
+    "usable_roof_area_m2": "number",
+    "estimated_panel_count": "number",
+    "estimated_system_kwp": "number",
+    "estimated_annual_yield_kwh": "number",
+    "recommended_battery_kwh": "number",
+    "recommended_inverter_kw": "number"
+  },
+
+  "decision_engine_questions": [
+    "Is my roof suitable for solar?",
+    "How many panels fit on my roof?",
+    "What is the maximum installable PV size?",
+    "How much electricity will be generated?",
+    "How much roof area is usable?",
+    "Does shading make the project uneconomic?",
+    "Do I need a structural assessment?",
+    "Which mounting system is required?"
+  ]
+}

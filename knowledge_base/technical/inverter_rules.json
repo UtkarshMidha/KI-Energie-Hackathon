@@ -1,0 +1,257 @@
+{
+  "metadata": {
+    "id": "INVERTER_RULES",
+    "name": "PV Inverter Selection Rules",
+    "version": "1.0",
+    "jurisdiction": "Germany"
+  },
+
+  "definitions": [
+    {
+      "id": "string_inverter",
+      "description": "Single inverter serving one or more PV strings"
+    },
+    {
+      "id": "hybrid_inverter",
+      "description": "Inverter with integrated battery support"
+    },
+    {
+      "id": "microinverter",
+      "description": "Module-level inverter"
+    },
+    {
+      "id": "mppt",
+      "description": "Maximum Power Point Tracker"
+    }
+  ],
+
+  "inverter_types": [
+    {
+      "type": "string_inverter",
+      "recommended_for": [
+        "simple_roof",
+        "low_shading"
+      ]
+    },
+    {
+      "type": "hybrid_inverter",
+      "recommended_for": [
+        "battery_storage"
+      ]
+    },
+    {
+      "type": "microinverter",
+      "recommended_for": [
+        "heavy_shading",
+        "complex_roof"
+      ]
+    }
+  ],
+
+  "sizing_rules": [
+    {
+      "rule_id": "INV_SIZE_001",
+      "description": "Typical inverter sizing ratio",
+      "formula": "pv_kwp * 0.8"
+    },
+    {
+      "rule_id": "INV_SIZE_002",
+      "description": "Conservative inverter sizing",
+      "formula": "pv_kwp * 0.9"
+    },
+    {
+      "rule_id": "INV_SIZE_003",
+      "description": "Full AC sizing",
+      "formula": "pv_kwp * 1.0"
+    }
+  ],
+
+  "phase_selection_rules": [
+    {
+      "rule_id": "PHASE_001",
+      "if": {
+        "inverter_power_kw": {
+          "lte": 4.6
+        }
+      },
+      "recommended": {
+        "phase": "single_phase"
+      }
+    },
+    {
+      "rule_id": "PHASE_002",
+      "if": {
+        "inverter_power_kw": {
+          "gt": 4.6
+        }
+      },
+      "recommended": {
+        "phase": "three_phase"
+      }
+    }
+  ],
+
+  "mppt_rules": [
+    {
+      "rule_id": "MPPT_001",
+      "if": {
+        "roof_orientation_count": 1
+      },
+      "recommended_mppt": 1
+    },
+    {
+      "rule_id": "MPPT_002",
+      "if": {
+        "roof_orientation_count": 2
+      },
+      "recommended_mppt": 2
+    },
+    {
+      "rule_id": "MPPT_003",
+      "if": {
+        "roof_orientation_count": {
+          "gte": 3
+        }
+      },
+      "recommended_mppt": 3
+    }
+  ],
+
+  "battery_rules": [
+    {
+      "rule_id": "BAT_INV_001",
+      "if": {
+        "battery_storage": true
+      },
+      "requirement": {
+        "hybrid_inverter": true
+      }
+    },
+    {
+      "rule_id": "BAT_INV_002",
+      "if": {
+        "battery_storage": true
+      },
+      "requirement": {
+        "battery_communication_supported": true
+      }
+    }
+  ],
+
+  "shading_rules": [
+    {
+      "rule_id": "SHADE_001",
+      "if": {
+        "shading": "none"
+      },
+      "recommended": {
+        "inverter_type": "string_inverter"
+      }
+    },
+    {
+      "rule_id": "SHADE_002",
+      "if": {
+        "shading": "moderate"
+      },
+      "recommended": {
+        "optimizer_support": true
+      }
+    },
+    {
+      "rule_id": "SHADE_003",
+      "if": {
+        "shading": "heavy"
+      },
+      "recommended": {
+        "microinverter": true
+      }
+    }
+  ],
+
+  "grid_compliance": [
+    {
+      "rule_id": "GRID_001",
+      "requirement": {
+        "vde_compliance_required": true
+      }
+    },
+    {
+      "rule_id": "GRID_002",
+      "requirement": {
+        "anti_islanding_required": true
+      }
+    },
+    {
+      "rule_id": "GRID_003",
+      "requirement": {
+        "grid_operator_approval_required": true
+      }
+    }
+  ],
+
+  "smart_meter_integration": [
+    {
+      "rule_id": "SMART_001",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 7
+        }
+      },
+      "recommended": {
+        "smart_meter_compatible": true
+      }
+    },
+    {
+      "rule_id": "SMART_002",
+      "if": {
+        "battery_storage": true
+      },
+      "recommended": {
+        "energy_management_support": true
+      }
+    }
+  ],
+
+  "communication_interfaces": [
+    {
+      "interface": "Modbus TCP"
+    },
+    {
+      "interface": "Modbus RTU"
+    },
+    {
+      "interface": "RS485"
+    },
+    {
+      "interface": "LAN"
+    },
+    {
+      "interface": "WiFi"
+    },
+    {
+      "interface": "Smart Meter Interface"
+    }
+  ],
+
+  "efficiency_rules": [
+    {
+      "rule_id": "EFF_001",
+      "recommended_efficiency_percent": 97
+    },
+    {
+      "rule_id": "EFF_002",
+      "premium_efficiency_percent": 98
+    }
+  ],
+
+  "decision_engine_questions": [
+    "What inverter size do I need?",
+    "Should I choose a hybrid inverter?",
+    "Do I need multiple MPPTs?",
+    "Can I connect a battery?",
+    "Do I need a 3-phase inverter?",
+    "Which inverter works best with shading?",
+    "Is smart meter integration supported?",
+    "Which communication interfaces are required?"
+  ]
+}

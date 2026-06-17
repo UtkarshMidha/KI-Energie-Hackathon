@@ -1,0 +1,227 @@
+{
+  "metadata": {
+    "law_id": "NBauO",
+    "law_name": "Niedersächsische Bauordnung",
+    "jurisdiction": "Lower Saxony",
+    "version": "2025",
+    "last_known_amendment": "2025-07-01",
+    "source_type": "structured_legal_knowledge_base"
+  },
+
+  "definitions": {
+    "roof_area": {
+      "description": "Relevant roof surface considered for solar obligations."
+    },
+
+    "building_height_H": {
+      "description": "Height parameter used in boundary distance calculations."
+    },
+
+    "solar_energy_system": {
+      "description": "Solar installation used for electricity generation."
+    },
+
+    "building_classes": [
+      {
+        "class": 1,
+        "description": "Detached building",
+        "max_height_m": 7,
+        "max_units": 2
+      },
+      {
+        "class": 2,
+        "description": "Semi-detached or terraced building",
+        "max_height_m": 7,
+        "max_units": 2
+      },
+      {
+        "class": 3,
+        "description": "Other buildings up to 7m"
+      },
+      {
+        "class": 4,
+        "description": "Buildings up to 13m"
+      },
+      {
+        "class": 5,
+        "description": "Buildings above class 4 limits"
+      }
+    ]
+  },
+
+  "photovoltaic_rules": [
+    {
+      "rule_id": "NBauO_32A_001",
+      "section": "32a",
+      "title": "PV obligation for new buildings",
+      "topic": "solar_mandate",
+      "condition": {
+        "building_status": "new_building",
+        "roof_area_m2_min": 50
+      },
+      "requirement": {
+        "pv_required": true,
+        "coverage_percent": 50
+      }
+    },
+
+    {
+      "rule_id": "NBauO_32A_002",
+      "section": "32a",
+      "title": "PV obligation for roof extension",
+      "condition": {
+        "modification_type": "roof_extension",
+        "new_roof_area_m2_min": 50
+      },
+      "requirement": {
+        "pv_required": true,
+        "coverage_percent": 50
+      }
+    },
+
+    {
+      "rule_id": "NBauO_32A_003",
+      "section": "32a",
+      "title": "PV obligation for building extension",
+      "condition": {
+        "modification_type": "building_extension",
+        "new_roof_area_m2_min": 50
+      },
+      "requirement": {
+        "pv_required": true,
+        "coverage_percent": 50
+      }
+    },
+
+    {
+      "rule_id": "NBauO_32A_004",
+      "section": "32a",
+      "title": "PV obligation for roof renewal",
+      "condition": {
+        "modification_type": "roof_renewal_to_waterproof_layer",
+        "renewed_roof_area_m2_min": 50
+      },
+      "requirement": {
+        "pv_required": true,
+        "coverage_percent": 50
+      }
+    }
+  ],
+
+  "parking_solar_rules": [
+    {
+      "rule_id": "NBauO_32A_PARK_001",
+      "section": "32a",
+      "title": "Solar canopy for new parking lots",
+      "condition": {
+        "facility_type": "open_parking_lot",
+        "parking_spaces_gt": 25
+      },
+      "requirement": {
+        "solar_installation_required": true
+      }
+    },
+
+    {
+      "rule_id": "NBauO_32A_PARK_002",
+      "section": "32a",
+      "title": "Solar canopy for major parking lot renovation",
+      "condition": {
+        "facility_type": "open_parking_lot",
+        "renovated_area_percent_min": 50
+      },
+      "requirement": {
+        "solar_installation_required": true
+      }
+    }
+  ],
+
+  "exceptions": [
+    {
+      "exception_id": "EX_001",
+      "type": "public_law_conflict",
+      "description": "Conflicts with other public-law obligations"
+    },
+
+    {
+      "exception_id": "EX_002",
+      "type": "technical_impossibility"
+    },
+
+    {
+      "exception_id": "EX_003",
+      "type": "economic_unreasonableness"
+    },
+
+    {
+      "exception_id": "EX_004",
+      "type": "solar_thermal_installation"
+    }
+  ],
+
+  "boundary_distance_rules": [
+    {
+      "rule_id": "NBauO_05_001",
+      "section": "5",
+      "topic": "boundary_distance",
+      "formula": "0.5 * H",
+      "minimum_distance_m": 3
+    }
+  ],
+
+  "firewall_pv_rules": [
+    {
+      "rule_id": "PV_FIRE_001",
+      "applicable_building_classes": [1, 2, 3],
+      "distance_to_firewall_cm": 0
+    },
+
+    {
+      "rule_id": "PV_FIRE_002",
+      "applicable_building_classes": [4, 5],
+      "distance_to_firewall_cm": 50
+    }
+  ],
+
+  "fire_protection_sections": [
+    {
+      "section": "26",
+      "topic": "building_material_fire_behavior"
+    },
+    {
+      "section": "27",
+      "topic": "walls_and_supports"
+    },
+    {
+      "section": "28",
+      "topic": "external_walls"
+    },
+    {
+      "section": "29",
+      "topic": "separation_walls"
+    },
+    {
+      "section": "30",
+      "topic": "fire_walls"
+    },
+    {
+      "section": "32",
+      "topic": "roofs"
+    },
+    {
+      "section": "33",
+      "topic": "escape_routes"
+    }
+  ],
+
+  "decision_engine_questions": [
+    "Can I install PV on my roof?",
+    "Is PV mandatory?",
+    "How much roof area must be covered?",
+    "Does roof renovation trigger PV obligations?",
+    "What are the firewall distance requirements?",
+    "What boundary distances apply?",
+    "Does a parking lot require solar canopies?",
+    "What exceptions exist?"
+  ]
+}

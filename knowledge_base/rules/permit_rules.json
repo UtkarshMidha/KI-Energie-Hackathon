@@ -1,0 +1,269 @@
+{
+  "metadata": {
+    "name": "PV Permit and Registration Rules",
+    "version": "1.0",
+    "jurisdiction": "Germany",
+    "state": "Lower Saxony"
+  },
+
+  "rules": [
+    {
+      "rule_id": "PERMIT_001",
+      "category": "building_permit",
+      "source": "NBauO",
+      "description": "Standard rooftop PV systems",
+      "if": {
+        "installation_type": "rooftop_pv"
+      },
+      "result": {
+        "building_permit_typically_required": false
+      }
+    },
+
+    {
+      "rule_id": "PERMIT_002",
+      "category": "heritage_protection",
+      "source": "NBauO",
+      "if": {
+        "listed_building": true
+      },
+      "result": {
+        "additional_approval_required": true,
+        "authority": "heritage_protection_authority"
+      }
+    },
+
+    {
+      "rule_id": "PERMIT_003",
+      "category": "protected_area",
+      "if": {
+        "protected_area": true
+      },
+      "result": {
+        "additional_review_required": true
+      }
+    },
+
+    {
+      "rule_id": "PERMIT_004",
+      "category": "structural_assessment",
+      "if": {
+        "roof_age_years": {
+          "gte": 40
+        }
+      },
+      "result": {
+        "structural_review_recommended": true
+      }
+    },
+
+    {
+      "rule_id": "GRID_001",
+      "category": "grid_connection",
+      "source": "EnWG",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "result": {
+        "grid_connection_request_required": true
+      }
+    },
+
+    {
+      "rule_id": "GRID_002",
+      "category": "grid_operator_notification",
+      "source": "EnWG",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "result": {
+        "dso_notification_required": true
+      }
+    },
+
+    {
+      "rule_id": "EEG_001",
+      "category": "market_master_data_register",
+      "source": "EEG",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "result": {
+        "marktstammdatenregister_registration_required": true
+      }
+    },
+
+    {
+      "rule_id": "EEG_002",
+      "category": "feed_in_remuneration",
+      "source": "EEG",
+      "if": {
+        "feed_in_remuneration_requested": true
+      },
+      "result": {
+        "operator_registration_required": true
+      }
+    },
+
+    {
+      "rule_id": "MSBG_001",
+      "category": "smart_meter",
+      "source": "MsbG",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 7
+        }
+      },
+      "result": {
+        "imsys_required": true,
+        "meter_operator_involvement_required": true
+      }
+    },
+
+    {
+      "rule_id": "MSBG_002",
+      "category": "smart_meter",
+      "source": "MsbG",
+      "if": {
+        "annual_consumption_kwh": {
+          "gt": 6000
+        }
+      },
+      "result": {
+        "smart_meter_rollout_applicable": true
+      }
+    },
+
+    {
+      "rule_id": "BATTERY_001",
+      "category": "battery_storage",
+      "if": {
+        "battery_storage": true
+      },
+      "result": {
+        "grid_operator_notification_required": true
+      }
+    },
+
+    {
+      "rule_id": "EV_001",
+      "category": "ev_charger",
+      "source": "EnWG_14A",
+      "if": {
+        "ev_charger": true
+      },
+      "result": {
+        "dso_notification_required": true,
+        "section_14a_check_required": true
+      }
+    },
+
+    {
+      "rule_id": "HEATPUMP_001",
+      "category": "heat_pump",
+      "source": "EnWG_14A",
+      "if": {
+        "heat_pump": true
+      },
+      "result": {
+        "section_14a_check_required": true
+      }
+    },
+
+    {
+      "rule_id": "PARKING_001",
+      "category": "parking_solar",
+      "source": "NBauO_32A",
+      "if": {
+        "parking_spaces": {
+          "gt": 25
+        }
+      },
+      "result": {
+        "parking_solar_obligation_review_required": true
+      }
+    },
+
+    {
+      "rule_id": "FIRE_001",
+      "category": "fire_protection",
+      "source": "NBauO",
+      "if": {
+        "building_class": {
+          "in": [4, 5]
+        }
+      },
+      "result": {
+        "firewall_distance_review_required": true
+      }
+    }
+  ],
+
+  "workflow": [
+    {
+      "step": 1,
+      "name": "Roof Suitability Assessment"
+    },
+    {
+      "step": 2,
+      "name": "Check Building Restrictions"
+    },
+    {
+      "step": 3,
+      "name": "Check NBauO Solar Obligations"
+    },
+    {
+      "step": 4,
+      "name": "Request Grid Connection"
+    },
+    {
+      "step": 5,
+      "name": "Register in Marktstammdatenregister"
+    },
+    {
+      "step": 6,
+      "name": "Install Smart Meter if Required"
+    },
+    {
+      "step": 7,
+      "name": "Commission System"
+    },
+    {
+      "step": 8,
+      "name": "Activate EEG Remuneration"
+    }
+  ],
+
+  "required_documents": [
+    {
+      "document": "site_plan"
+    },
+    {
+      "document": "roof_layout"
+    },
+    {
+      "document": "module_layout"
+    },
+    {
+      "document": "single_line_diagram"
+    },
+    {
+      "document": "electrical_design"
+    },
+    {
+      "document": "inverter_specification"
+    },
+    {
+      "document": "grid_connection_application"
+    },
+    {
+      "document": "marktstammdatenregister_registration"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "metadata": {
+    "id": "MUNICIPAL_INCENTIVES",
+    "name": "Municipal Energy Incentives Registry",
+    "jurisdiction": "Germany",
+    "version": "2026"
+  },
+
+  "city_profiles": [
+    {
+      "city": "Braunschweig",
+      "state": "Lower Saxony",
+      "municipal_funding_available": true,
+
+      "programs": [
+        {
+          "program_id": "BS_RENEWABLES",
+          "name": "Förderprogramm für regenerative Energien und Energieeffizienzmaßnahmen",
+          "provider": "Stadt Braunschweig",
+          "status": "budget_exhausted_2026",
+
+          "categories": [
+            "pv",
+            "energy_efficiency",
+            "renewable_energy"
+          ]
+        }
+      ]
+    },
+
+    {
+      "city": "Hannover",
+      "state": "Lower Saxony",
+      "municipal_funding_available": true,
+
+      "programs": [
+        {
+          "program_id": "PROKLIMA",
+          "provider": "proKlima",
+          "status": "check_current_availability",
+
+          "categories": [
+            "pv",
+            "battery_storage",
+            "heat_pump",
+            "building_efficiency"
+          ]
+        }
+      ]
+    }
+  ],
+
+  "funding_categories": [
+    {
+      "category": "rooftop_pv"
+    },
+    {
+      "category": "balcony_pv"
+    },
+    {
+      "category": "battery_storage"
+    },
+    {
+      "category": "heat_pump"
+    },
+    {
+      "category": "ev_charger"
+    },
+    {
+      "category": "green_roof_pv"
+    },
+    {
+      "category": "facade_pv"
+    },
+    {
+      "category": "community_energy"
+    }
+  ],
+
+  "eligibility_rules": [
+    {
+      "rule_id": "MUNI_001",
+
+      "if": {
+        "city_known": true
+      },
+
+      "then": {
+        "check_municipal_programs": true
+      }
+    },
+
+    {
+      "rule_id": "MUNI_002",
+
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+
+      "then": {
+        "check_rooftop_pv_funding": true
+      }
+    },
+
+    {
+      "rule_id": "MUNI_003",
+
+      "if": {
+        "battery_storage": true
+      },
+
+      "then": {
+        "check_battery_funding": true
+      }
+    },
+
+    {
+      "rule_id": "MUNI_004",
+
+      "if": {
+        "balcony_pv": true
+      },
+
+      "then": {
+        "check_balcony_pv_funding": true
+      }
+    },
+
+    {
+      "rule_id": "MUNI_005",
+
+      "if": {
+        "heat_pump": true
+      },
+
+      "then": {
+        "check_heat_pump_funding": true
+      }
+    }
+  ],
+
+  "application_rules": [
+    {
+      "rule_id": "APP_001",
+      "requirement": "apply_before_installation"
+    },
+
+    {
+      "rule_id": "APP_002",
+      "requirement": "municipal_budget_available"
+    },
+
+    {
+      "rule_id": "APP_003",
+      "requirement": "proof_of_residence_or_property"
+    },
+
+    {
+      "rule_id": "APP_004",
+      "requirement": "technical_documentation"
+    }
+  ],
+
+  "fallback_logic": [
+    {
+      "rule_id": "FALLBACK_001",
+
+      "if": {
+        "municipal_program_not_available": true
+      },
+
+      "then": {
+        "recommend_federal_programs": true
+      }
+    },
+
+    {
+      "rule_id": "FALLBACK_002",
+
+      "if": {
+        "municipal_budget_exhausted": true
+      },
+
+      "then": {
+        "recommend_federal_programs": true,
+        "recommend_state_programs": true
+      }
+    }
+  ],
+
+  "decision_engine_questions": [
+    "Does my city offer PV funding?",
+    "Is there a balcony PV subsidy?",
+    "Are battery grants available locally?",
+    "Can I combine municipal and federal incentives?",
+    "Is the Braunschweig funding program still open?",
+    "What municipal climate programs are available?",
+    "Are heat pumps subsidized locally?",
+    "What documents are needed for municipal grants?"
+  ]
+}

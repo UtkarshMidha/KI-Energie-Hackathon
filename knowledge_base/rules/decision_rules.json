@@ -1,0 +1,287 @@
+{
+  "metadata": {
+    "name": "PV Legal Decision Engine",
+    "version": "1.0",
+    "jurisdiction": "Germany",
+    "state": "Lower Saxony"
+  },
+
+  "rules": [
+
+    {
+      "rule_id": "PV_INSTALL_001",
+      "category": "installation",
+      "priority": 1,
+      "description": "PV installation generally allowed on suitable roofs",
+      "if": {
+        "roof_exists": true
+      },
+      "then": {
+        "installation_possible": true
+      }
+    },
+
+    {
+      "rule_id": "PV_MANDATORY_001",
+      "source": "NBauO_32A_001",
+      "category": "solar_mandate",
+      "priority": 10,
+      "if": {
+        "building_type": "new_building",
+        "roof_area_m2": {
+          "gte": 50
+        }
+      },
+      "then": {
+        "pv_mandatory": true,
+        "required_roof_coverage_percent": 50
+      }
+    },
+
+    {
+      "rule_id": "PV_MANDATORY_002",
+      "source": "NBauO_32A_004",
+      "category": "solar_mandate",
+      "priority": 10,
+      "if": {
+        "roof_renovation": true,
+        "roof_area_m2": {
+          "gte": 50
+        }
+      },
+      "then": {
+        "pv_mandatory": true
+      }
+    },
+
+    {
+      "rule_id": "PV_EXCEPTION_001",
+      "source": "NBauO_EXCEPTION",
+      "category": "exceptions",
+      "priority": 100,
+      "if": {
+        "technical_impossibility": true
+      },
+      "then": {
+        "pv_mandatory": false,
+        "exception_applies": true
+      }
+    },
+
+    {
+      "rule_id": "PV_EXCEPTION_002",
+      "source": "NBauO_EXCEPTION",
+      "category": "exceptions",
+      "priority": 100,
+      "if": {
+        "economic_unreasonableness": true
+      },
+      "then": {
+        "pv_mandatory": false,
+        "exception_applies": true
+      }
+    },
+
+    {
+      "rule_id": "PV_EXCEPTION_003",
+      "source": "NBauO_EXCEPTION",
+      "category": "exceptions",
+      "priority": 100,
+      "if": {
+        "public_law_conflict": true
+      },
+      "then": {
+        "pv_mandatory": false,
+        "exception_applies": true
+      }
+    },
+
+    {
+      "rule_id": "GRID_001",
+      "source": "ENWG_17_001",
+      "category": "grid_connection",
+      "priority": 20,
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "then": {
+        "grid_connection_request_allowed": true
+      }
+    },
+
+    {
+      "rule_id": "GRID_002",
+      "source": "ENWG_17_001",
+      "category": "grid_connection",
+      "priority": 20,
+      "if": {
+        "grid_connection_requested": true
+      },
+      "then": {
+        "operator_must_evaluate_request": true
+      }
+    },
+
+    {
+      "rule_id": "EEG_001",
+      "source": "EEG_PAY_001",
+      "category": "remuneration",
+      "priority": 30,
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "then": {
+        "feed_in_remuneration_possible": true
+      }
+    },
+
+    {
+      "rule_id": "EEG_002",
+      "source": "EEG_SELF_001",
+      "category": "self_consumption",
+      "priority": 30,
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "then": {
+        "self_consumption_allowed": true
+      }
+    },
+
+    {
+      "rule_id": "EEG_003",
+      "source": "EEG_SELF_002",
+      "category": "surplus_feed_in",
+      "priority": 30,
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "then": {
+        "surplus_feed_in_allowed": true
+      }
+    },
+
+    {
+      "rule_id": "MSBG_001",
+      "source": "MSBG_PV_001",
+      "category": "metering",
+      "priority": 40,
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 7
+        }
+      },
+      "then": {
+        "smart_meter_required": true,
+        "imsys_required": true
+      }
+    },
+
+    {
+      "rule_id": "MSBG_002",
+      "source": "MSBG_ROLLOUT_002",
+      "category": "metering",
+      "priority": 40,
+      "if": {
+        "annual_consumption_kwh": {
+          "gt": 6000
+        }
+      },
+      "then": {
+        "imsys_required": true
+      }
+    },
+
+    {
+      "rule_id": "ENWG_14A_001",
+      "source": "ENWG_14A",
+      "category": "controllable_devices",
+      "priority": 50,
+      "if": {
+        "has_heat_pump": true
+      },
+      "then": {
+        "section_14a_relevant": true
+      }
+    },
+
+    {
+      "rule_id": "ENWG_14A_002",
+      "source": "ENWG_14A",
+      "category": "controllable_devices",
+      "priority": 50,
+      "if": {
+        "has_ev_charger": true
+      },
+      "then": {
+        "section_14a_relevant": true
+      }
+    },
+
+    {
+      "rule_id": "ENWG_14A_003",
+      "source": "ENWG_14A",
+      "category": "controllable_devices",
+      "priority": 50,
+      "if": {
+        "has_battery_storage": true
+      },
+      "then": {
+        "section_14a_relevant": true
+      }
+    },
+
+    {
+      "rule_id": "FIRE_001",
+      "source": "NBauO_FIRE",
+      "category": "fire_protection",
+      "priority": 60,
+      "if": {
+        "building_class": {
+          "in": [4, 5]
+        }
+      },
+      "then": {
+        "firewall_clearance_cm": 50
+      }
+    },
+
+    {
+      "rule_id": "FIRE_002",
+      "source": "NBauO_FIRE",
+      "category": "fire_protection",
+      "priority": 60,
+      "if": {
+        "building_class": {
+          "in": [1, 2, 3]
+        }
+      },
+      "then": {
+        "firewall_clearance_cm": 0
+      }
+    },
+
+    {
+      "rule_id": "PARKING_001",
+      "source": "NBauO_32A_PARK_001",
+      "category": "parking_solar",
+      "priority": 70,
+      "if": {
+        "parking_spaces": {
+          "gt": 25
+        }
+      },
+      "then": {
+        "parking_solar_required": true
+      }
+    }
+  ]
+}

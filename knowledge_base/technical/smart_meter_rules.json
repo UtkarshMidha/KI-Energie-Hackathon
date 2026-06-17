@@ -1,0 +1,289 @@
+{
+  "metadata": {
+    "id": "SMART_METER_RULES",
+    "name": "Smart Meter and iMSys Rules",
+    "version": "1.0",
+    "jurisdiction": "Germany",
+    "source_laws": [
+      "MsbG",
+      "EnWG",
+      "EEG"
+    ]
+  },
+
+  "definitions": [
+    {
+      "id": "mME",
+      "name": "moderne Messeinrichtung",
+      "english_name": "Modern Meter",
+      "communication_capability": false
+    },
+    {
+      "id": "SMGW",
+      "name": "Smart Meter Gateway",
+      "communication_capability": true,
+      "bsi_certified": true
+    },
+    {
+      "id": "iMSys",
+      "name": "Intelligentes Messsystem",
+      "description": "Modern meter plus Smart Meter Gateway"
+    },
+    {
+      "id": "MSB",
+      "name": "Messstellenbetreiber",
+      "english_name": "Metering Point Operator"
+    },
+    {
+      "id": "gMSB",
+      "name": "Grundzuständiger Messstellenbetreiber"
+    }
+  ],
+
+  "rollout_rules": [
+    {
+      "rule_id": "ROLLOUT_001",
+      "source": "MsbG",
+      "if": {
+        "annual_consumption_kwh": {
+          "gt": 6000
+        }
+      },
+      "then": {
+        "imsys_required": true
+      }
+    },
+    {
+      "rule_id": "ROLLOUT_002",
+      "source": "MsbG",
+      "if": {
+        "annual_consumption_kwh": {
+          "lte": 6000
+        }
+      },
+      "then": {
+        "modern_meter_sufficient": true
+      }
+    }
+  ],
+
+  "pv_rules": [
+    {
+      "rule_id": "PV_SM_001",
+      "source": "MsbG",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 7
+        }
+      },
+      "then": {
+        "imsys_required": true
+      }
+    },
+    {
+      "rule_id": "PV_SM_002",
+      "source": "EEG",
+      "if": {
+        "feed_in_remuneration": true
+      },
+      "then": {
+        "generation_meter_required": true
+      }
+    },
+    {
+      "rule_id": "PV_SM_003",
+      "source": "MsbG",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "then": {
+        "remote_metering_supported": true
+      }
+    }
+  ],
+
+  "battery_rules": [
+    {
+      "rule_id": "BAT_SM_001",
+      "if": {
+        "battery_storage": true
+      },
+      "then": {
+        "smart_meter_integration_recommended": true
+      }
+    },
+    {
+      "rule_id": "BAT_SM_002",
+      "if": {
+        "battery_storage": true,
+        "section_14a_participation": true
+      },
+      "then": {
+        "imsys_recommended": true
+      }
+    }
+  ],
+
+  "heat_pump_rules": [
+    {
+      "rule_id": "HP_SM_001",
+      "source": "EnWG_14A",
+      "if": {
+        "heat_pump": true
+      },
+      "then": {
+        "controllable_device": true
+      }
+    },
+    {
+      "rule_id": "HP_SM_002",
+      "source": "MsbG",
+      "if": {
+        "heat_pump": true
+      },
+      "then": {
+        "smart_meter_recommended": true
+      }
+    }
+  ],
+
+  "ev_charger_rules": [
+    {
+      "rule_id": "EV_SM_001",
+      "source": "EnWG_14A",
+      "if": {
+        "ev_charger": true
+      },
+      "then": {
+        "controllable_device": true
+      }
+    },
+    {
+      "rule_id": "EV_SM_002",
+      "source": "MsbG",
+      "if": {
+        "ev_charger": true
+      },
+      "then": {
+        "imsys_recommended": true
+      }
+    }
+  ],
+
+  "gateway_rules": [
+    {
+      "rule_id": "GW_001",
+      "requirement": {
+        "bsi_certification_required": true
+      }
+    },
+    {
+      "rule_id": "GW_002",
+      "requirement": {
+        "encrypted_communication_required": true
+      }
+    },
+    {
+      "rule_id": "GW_003",
+      "requirement": {
+        "secure_remote_access_required": true
+      }
+    }
+  ],
+
+  "operator_rules": [
+    {
+      "rule_id": "MSB_001",
+      "responsibility": "meter_installation"
+    },
+    {
+      "rule_id": "MSB_002",
+      "responsibility": "meter_operation"
+    },
+    {
+      "rule_id": "MSB_003",
+      "responsibility": "gateway_operation"
+    },
+    {
+      "rule_id": "MSB_004",
+      "responsibility": "meter_maintenance"
+    }
+  ],
+
+  "energy_management_integration": [
+    {
+      "rule_id": "EMS_001",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "then": {
+        "ems_recommended": true
+      }
+    },
+    {
+      "rule_id": "EMS_002",
+      "if": {
+        "battery_storage": true
+      },
+      "then": {
+        "ems_recommended": true
+      }
+    },
+    {
+      "rule_id": "EMS_003",
+      "if": {
+        "heat_pump": true
+      },
+      "then": {
+        "ems_recommended": true
+      }
+    }
+  ],
+
+  "cost_rules": [
+    {
+      "rule_id": "COST_001",
+      "source": "MsbG",
+      "description": "Regulated annual cost caps apply"
+    },
+    {
+      "rule_id": "COST_002",
+      "description": "Costs depend on customer category and installation type"
+    }
+  ],
+
+  "communication_interfaces": [
+    {
+      "interface": "Smart Meter Gateway"
+    },
+    {
+      "interface": "Modbus TCP"
+    },
+    {
+      "interface": "REST API"
+    },
+    {
+      "interface": "HAN Interface"
+    },
+    {
+      "interface": "CLS Interface"
+    }
+  ],
+
+  "decision_engine_questions": [
+    "Do I need a smart meter?",
+    "Do I need an intelligent metering system?",
+    "Does my PV system trigger mandatory rollout?",
+    "Who installs the smart meter?",
+    "Can my battery be integrated?",
+    "Does my heat pump require smart metering?",
+    "Does my EV charger require smart metering?",
+    "What is a Smart Meter Gateway?",
+    "Can the grid operator remotely access my system?",
+    "How does §14a EnWG affect my installation?"
+  ]
+}

@@ -1,0 +1,230 @@
+{
+  "metadata": {
+    "id": "PV_DESIGN",
+    "name": "Photovoltaic Design Rules",
+    "version": "1.0",
+    "jurisdiction": "Germany"
+  },
+
+  "constants": {
+    "panel_power_default_wp": 450,
+    "panel_area_default_m2": 2.0,
+    "performance_ratio_default": 0.85,
+    "design_lifetime_years": 25
+  },
+
+  "roof_types": [
+    {
+      "id": "gable",
+      "german": "Satteldach"
+    },
+    {
+      "id": "hip",
+      "german": "Walmdach"
+    },
+    {
+      "id": "flat",
+      "german": "Flachdach"
+    },
+    {
+      "id": "shed",
+      "german": "Pultdach"
+    }
+  ],
+
+  "orientation_factors": {
+    "south": 1.0,
+    "south_east": 0.95,
+    "south_west": 0.95,
+    "east": 0.85,
+    "west": 0.85,
+    "north_east": 0.55,
+    "north_west": 0.55,
+    "north": 0.45
+  },
+
+  "tilt_factors": [
+    {
+      "tilt_deg": 0,
+      "factor": 0.9
+    },
+    {
+      "tilt_deg": 10,
+      "factor": 0.95
+    },
+    {
+      "tilt_deg": 20,
+      "factor": 0.98
+    },
+    {
+      "tilt_deg": 30,
+      "factor": 1.0
+    },
+    {
+      "tilt_deg": 35,
+      "factor": 1.0
+    },
+    {
+      "tilt_deg": 40,
+      "factor": 0.99
+    },
+    {
+      "tilt_deg": 50,
+      "factor": 0.95
+    },
+    {
+      "tilt_deg": 60,
+      "factor": 0.88
+    }
+  ],
+
+  "shading_factors": {
+    "none": 1.0,
+    "light": 0.95,
+    "moderate": 0.85,
+    "heavy": 0.65
+  },
+
+  "suitability_scoring": [
+    {
+      "score": 90,
+      "classification": "excellent"
+    },
+    {
+      "score": 75,
+      "classification": "good"
+    },
+    {
+      "score": 60,
+      "classification": "acceptable"
+    },
+    {
+      "score": 40,
+      "classification": "poor"
+    },
+    {
+      "score": 20,
+      "classification": "not_recommended"
+    }
+  ],
+
+  "pv_sizing_rules": [
+    {
+      "rule_id": "SIZE_001",
+      "description": "Residential consumption based sizing",
+      "if": {
+        "annual_consumption_kwh": {
+          "lte": 3000
+        }
+      },
+      "recommended_system_kwp": {
+        "min": 3,
+        "max": 5
+      }
+    },
+
+    {
+      "rule_id": "SIZE_002",
+      "if": {
+        "annual_consumption_kwh": {
+          "gt": 3000,
+          "lte": 5000
+        }
+      },
+      "recommended_system_kwp": {
+        "min": 5,
+        "max": 8
+      }
+    },
+
+    {
+      "rule_id": "SIZE_003",
+      "if": {
+        "annual_consumption_kwh": {
+          "gt": 5000,
+          "lte": 8000
+        }
+      },
+      "recommended_system_kwp": {
+        "min": 8,
+        "max": 12
+      }
+    },
+
+    {
+      "rule_id": "SIZE_004",
+      "if": {
+        "annual_consumption_kwh": {
+          "gt": 8000
+        }
+      },
+      "recommended_system_kwp": {
+        "min": 12,
+        "max": 20
+      }
+    }
+  ],
+
+  "panel_calculation": {
+    "formula": "roof_area_m2 * utilization_factor / panel_area",
+    "utilization_factor": 0.8
+  },
+
+  "battery_sizing_rules": [
+    {
+      "rule_id": "BATTERY_001",
+      "formula": "pv_kwp * 1.0"
+    },
+    {
+      "rule_id": "BATTERY_002",
+      "description": "Typical battery size equals PV size in kWh"
+    }
+  ],
+
+  "inverter_sizing_rules": [
+    {
+      "rule_id": "INV_001",
+      "formula": "pv_kwp * 0.8"
+    },
+    {
+      "rule_id": "INV_002",
+      "formula": "pv_kwp * 1.0"
+    }
+  ],
+
+  "yield_estimation": {
+    "germany_average": {
+      "north": 850,
+      "central": 950,
+      "south": 1050
+    },
+    "unit": "kwh_per_kwp_per_year"
+  },
+
+  "economic_rules": [
+    {
+      "rule_id": "ECO_001",
+      "description": "Battery recommended for high self-consumption households",
+      "condition": {
+        "annual_consumption_kwh": {
+          "gte": 4000
+        }
+      }
+    },
+    {
+      "rule_id": "ECO_002",
+      "description": "East-west roofs improve self-consumption profile"
+    }
+  ],
+
+  "decision_engine_questions": [
+    "How many solar panels fit on my roof?",
+    "What PV size is recommended?",
+    "What inverter size do I need?",
+    "Should I buy a battery?",
+    "How much electricity will my system generate?",
+    "Is my roof suitable for PV?",
+    "What is the expected annual yield?",
+    "How many kWp can I install?"
+  ]
+}

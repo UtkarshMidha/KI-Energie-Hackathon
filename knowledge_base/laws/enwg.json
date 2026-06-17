@@ -1,0 +1,255 @@
+{
+  "metadata": {
+    "law_id": "EnWG",
+    "law_name": "Energiewirtschaftsgesetz",
+    "english_name": "German Energy Industry Act",
+    "jurisdiction": "Germany",
+    "knowledge_base_version": "1.0",
+    "primary_topics": [
+      "grid_connection",
+      "network_operation",
+      "consumer_protection",
+      "smart_grids",
+      "distributed_energy",
+      "flexibility"
+    ]
+  },
+
+  "objectives": [
+    {
+      "id": "OBJ_001",
+      "name": "security_of_supply"
+    },
+    {
+      "id": "OBJ_002",
+      "name": "competition"
+    },
+    {
+      "id": "OBJ_003",
+      "name": "consumer_protection"
+    },
+    {
+      "id": "OBJ_004",
+      "name": "efficient_grid_operation"
+    },
+    {
+      "id": "OBJ_005",
+      "name": "renewable_integration"
+    }
+  ],
+
+  "definitions": [
+    {
+      "id": "distribution_system_operator",
+      "alias": "DSO"
+    },
+    {
+      "id": "transmission_system_operator",
+      "alias": "TSO"
+    },
+    {
+      "id": "grid_connection"
+    },
+    {
+      "id": "controllable_consumption_device"
+    },
+    {
+      "id": "battery_storage"
+    },
+    {
+      "id": "smart_grid"
+    },
+    {
+      "id": "flexible_grid_connection"
+    }
+  ],
+
+  "grid_connection_rules": [
+    {
+      "rule_id": "ENWG_17_001",
+      "section": "17",
+      "title": "Right to grid connection",
+      "topic": "grid_connection",
+      "requirement": {
+        "grid_operator_must_connect": true,
+        "conditions": [
+          "reasonable",
+          "transparent",
+          "non_discriminatory"
+        ]
+      }
+    },
+    {
+      "rule_id": "ENWG_17_002",
+      "section": "17",
+      "title": "Storage connection",
+      "topic": "battery_storage",
+      "requirement": {
+        "battery_connection_allowed": true
+      }
+    }
+  ],
+
+  "flexible_connection_rules": [
+    {
+      "rule_id": "ENWG_17_2B_001",
+      "section": "17(2b)",
+      "topic": "flexible_connection_agreement",
+      "requirement": {
+        "agreement_possible": true
+      }
+    },
+    {
+      "rule_id": "ENWG_17_2B_002",
+      "section": "17(2b)",
+      "topic": "capacity_limitation",
+      "requirement": {
+        "static_limitation_allowed": true,
+        "dynamic_limitation_allowed": true
+      }
+    },
+    {
+      "rule_id": "ENWG_17_2B_003",
+      "section": "17(2b)",
+      "topic": "minimum_contract_content",
+      "required_fields": [
+        "capacity_limit",
+        "time_windows",
+        "agreement_duration",
+        "technical_requirements"
+      ]
+    }
+  ],
+
+  "section_14a": {
+    "description": "Grid-oriented control of controllable devices",
+
+    "applicable_devices": [
+      {
+        "device": "heat_pump",
+        "controllable": true
+      },
+      {
+        "device": "ev_charger",
+        "controllable": true
+      },
+      {
+        "device": "battery_storage",
+        "controllable": true
+      },
+      {
+        "device": "air_conditioning",
+        "controllable": true
+      }
+    ],
+
+    "rules": [
+      {
+        "rule_id": "ENWG_14A_001",
+        "topic": "remote_control_capability",
+        "requirement": {
+          "remote_controllability_required": true
+        }
+      },
+      {
+        "rule_id": "ENWG_14A_002",
+        "topic": "grid_overload_protection",
+        "requirement": {
+          "dso_may_reduce_power": true
+        }
+      },
+      {
+        "rule_id": "ENWG_14A_003",
+        "topic": "consumer_compensation",
+        "requirement": {
+          "reduced_network_fees_available": true
+        }
+      },
+      {
+        "rule_id": "ENWG_14A_004",
+        "topic": "minimum_supply",
+        "requirement": {
+          "complete_shutdown_not_allowed": true
+        }
+      }
+    ]
+  },
+
+  "network_operator_obligations": [
+    {
+      "rule_id": "ENWG_GRID_001",
+      "topic": "safe_operation",
+      "requirement": {
+        "safe_operation_required": true
+      }
+    },
+    {
+      "rule_id": "ENWG_GRID_002",
+      "topic": "reliable_operation",
+      "requirement": {
+        "reliable_operation_required": true
+      }
+    },
+    {
+      "rule_id": "ENWG_GRID_003",
+      "topic": "grid_expansion",
+      "requirement": {
+        "network_expansion_when_required": true
+      }
+    }
+  ],
+
+  "consumer_rights": [
+    {
+      "rule_id": "ENWG_CONS_001",
+      "topic": "non_discriminatory_access",
+      "right": true
+    },
+    {
+      "rule_id": "ENWG_CONS_002",
+      "topic": "transparent_conditions",
+      "right": true
+    },
+    {
+      "rule_id": "ENWG_CONS_003",
+      "topic": "connection_request",
+      "right": true
+    }
+  ],
+
+  "pv_specific_rules": [
+    {
+      "rule_id": "PV_GRID_001",
+      "topic": "rooftop_pv_connection",
+      "requirement": {
+        "connection_request_possible": true
+      }
+    },
+    {
+      "rule_id": "PV_GRID_002",
+      "topic": "battery_plus_pv",
+      "requirement": {
+        "co_location_supported": true
+      }
+    },
+    {
+      "rule_id": "PV_GRID_003",
+      "topic": "flexible_connection",
+      "requirement": {
+        "capacity_limited_connection_possible": true
+      }
+    }
+  ],
+
+  "decision_engine_questions": [
+    "Can the grid operator refuse my PV system?",
+    "Do I have a right to grid connection?",
+    "Can my battery storage be connected?",
+    "What is a flexible grid connection?",
+    "What is Section 14a EnWG?",
+    "Can my EV charger be remotely controlled?",
+    "Can my heat pump be throttled?",
+    "Do I receive compensation for controllable devices?",
+    "Can my PV and battery share a grid connection?"
+  ]
+}

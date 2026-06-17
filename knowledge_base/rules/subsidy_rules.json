@@ -1,0 +1,252 @@
+{
+  "metadata": {
+    "name": "Subsidy Eligibility Rules",
+    "version": "1.0",
+    "jurisdiction": "Germany",
+    "state": "Lower Saxony"
+  },
+
+  "funding_programs": [
+    {
+      "program_id": "KFW_RESIDENTIAL",
+      "provider": "KfW",
+      "scope": "federal",
+      "category": "residential_energy",
+      "active": true
+    },
+    {
+      "program_id": "KFW_SOLAR",
+      "provider": "KfW",
+      "scope": "federal",
+      "category": "solar"
+    },
+    {
+      "program_id": "KFW_STORAGE",
+      "provider": "KfW",
+      "scope": "federal",
+      "category": "battery_storage"
+    },
+    {
+      "program_id": "KFW_HEATPUMP",
+      "provider": "KfW",
+      "scope": "federal",
+      "category": "heat_pump"
+    },
+    {
+      "program_id": "LOWER_SAXONY_ENERGY",
+      "provider": "Lower Saxony",
+      "scope": "state"
+    },
+    {
+      "program_id": "MUNICIPAL_ENERGY",
+      "provider": "municipality",
+      "scope": "local"
+    }
+  ],
+
+  "eligibility_rules": [
+    {
+      "rule_id": "SUB_PV_001",
+      "category": "pv_system",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "eligible_for": [
+        "solar_funding_review"
+      ]
+    },
+
+    {
+      "rule_id": "SUB_PV_002",
+      "category": "residential_pv",
+      "if": {
+        "building_type": {
+          "in": [
+            "single_family_house",
+            "semi_detached_house",
+            "multi_family_house"
+          ]
+        }
+      },
+      "eligible_for": [
+        "residential_solar_programs"
+      ]
+    },
+
+    {
+      "rule_id": "SUB_BATTERY_001",
+      "category": "battery_storage",
+      "if": {
+        "battery_storage": true
+      },
+      "eligible_for": [
+        "battery_storage_funding"
+      ]
+    },
+
+    {
+      "rule_id": "SUB_BATTERY_002",
+      "category": "battery_storage",
+      "if": {
+        "battery_storage": true,
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "eligible_for": [
+        "combined_pv_storage_programs"
+      ]
+    },
+
+    {
+      "rule_id": "SUB_HP_001",
+      "category": "heat_pump",
+      "if": {
+        "heat_pump": true
+      },
+      "eligible_for": [
+        "heat_pump_subsidies"
+      ]
+    },
+
+    {
+      "rule_id": "SUB_EV_001",
+      "category": "ev_charger",
+      "if": {
+        "ev_charger": true
+      },
+      "eligible_for": [
+        "charging_infrastructure_funding"
+      ]
+    },
+
+    {
+      "rule_id": "SUB_EV_002",
+      "category": "solar_mobility",
+      "if": {
+        "ev_charger": true,
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "eligible_for": [
+        "solar_mobility_programs"
+      ]
+    },
+
+    {
+      "rule_id": "SUB_RENOVATION_001",
+      "category": "building_renovation",
+      "if": {
+        "energy_renovation": true
+      },
+      "eligible_for": [
+        "energy_efficiency_programs"
+      ]
+    },
+
+    {
+      "rule_id": "SUB_MULTI_001",
+      "category": "multi_family",
+      "if": {
+        "building_type": "multi_family_house"
+      },
+      "eligible_for": [
+        "tenant_electricity_support",
+        "multi_family_energy_programs"
+      ]
+    },
+
+    {
+      "rule_id": "SUB_COMMERCIAL_001",
+      "category": "commercial",
+      "if": {
+        "building_type": {
+          "in": [
+            "commercial",
+            "industrial"
+          ]
+        }
+      },
+      "eligible_for": [
+        "commercial_energy_programs"
+      ]
+    }
+  ],
+
+  "required_documents": [
+    {
+      "document": "identity_verification"
+    },
+    {
+      "document": "property_ownership_proof"
+    },
+    {
+      "document": "installation_quote"
+    },
+    {
+      "document": "technical_specifications"
+    },
+    {
+      "document": "energy_consultant_report"
+    },
+    {
+      "document": "grid_connection_confirmation"
+    },
+    {
+      "document": "invoice"
+    }
+  ],
+
+  "application_rules": [
+    {
+      "rule_id": "APP_001",
+      "requirement": "application_before_project_start"
+    },
+    {
+      "rule_id": "APP_002",
+      "requirement": "approved_installer_may_be_required"
+    },
+    {
+      "rule_id": "APP_003",
+      "requirement": "technical_compliance_required"
+    }
+  ],
+
+  "technology_mapping": {
+    "pv_system": [
+      "solar_funding_review",
+      "renewable_energy_programs"
+    ],
+
+    "battery_storage": [
+      "battery_storage_funding"
+    ],
+
+    "heat_pump": [
+      "heat_pump_subsidies"
+    ],
+
+    "ev_charger": [
+      "charging_infrastructure_funding"
+    ],
+
+    "tenant_electricity": [
+      "tenant_electricity_support"
+    ]
+  },
+
+  "decision_engine_questions": [
+    "Am I eligible for solar subsidies?",
+    "Are battery grants available?",
+    "Can I receive KfW funding?",
+    "Can I combine PV and battery subsidies?",
+    "Are heat pump incentives available?",
+    "Can I receive EV charger support?",
+    "What documents are required?",
+    "Must I apply before installation?",
+    "Which programs apply to my building type?"
+  ]
+}

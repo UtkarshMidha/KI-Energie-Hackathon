@@ -1,0 +1,197 @@
+{
+  "metadata": {
+    "id": "FEDERAL_INCENTIVES",
+    "name": "German Federal Energy Incentives",
+    "jurisdiction": "Germany",
+    "version": "1.0"
+  },
+
+  "programs": [
+    {
+      "program_id": "EEG_FEED_IN",
+      "name": "EEG Feed-in Remuneration",
+      "category": "renewable_energy",
+      "status": "active",
+
+      "eligibility": {
+        "pv_system_required": true,
+        "grid_connection_required": true,
+        "market_master_data_registration_required": true
+      },
+
+      "benefits": [
+        "feed_in_tariff",
+        "surplus_feed_in",
+        "full_feed_in_option"
+      ],
+
+      "source_law": "EEG"
+    },
+
+    {
+      "program_id": "ZERO_VAT_PV",
+      "name": "0% VAT for Residential PV",
+      "category": "tax_benefit",
+      "status": "active",
+
+      "eligibility": {
+        "residential_building": true,
+        "pv_installation": true
+      },
+
+      "benefits": [
+        "zero_percent_vat_on_pv",
+        "zero_percent_vat_on_battery",
+        "zero_percent_vat_on_installation"
+      ]
+    },
+
+    {
+      "program_id": "KFW_270",
+      "name": "KfW Renewable Energy Standard",
+      "provider": "KfW",
+      "category": "loan",
+      "status": "active",
+
+      "eligible_technologies": [
+        "pv",
+        "battery_storage",
+        "renewable_energy"
+      ],
+
+      "benefits": [
+        "low_interest_loan"
+      ]
+    },
+
+    {
+      "program_id": "BEG_HEAT_PUMP",
+      "name": "Federal Efficient Buildings Program",
+      "provider": "Federal Government",
+      "category": "grant",
+      "status": "active",
+
+      "eligible_technologies": [
+        "heat_pump",
+        "building_efficiency"
+      ]
+    }
+  ],
+
+  "tax_benefits": [
+    {
+      "rule_id": "TAX_001",
+      "name": "0% VAT",
+
+      "applies_to": [
+        "pv_modules",
+        "battery_storage",
+        "installation_services",
+        "inverters"
+      ]
+    },
+
+    {
+      "rule_id": "TAX_002",
+      "name": "Income Tax Relief",
+
+      "applies_to": [
+        "qualifying_residential_pv"
+      ]
+    }
+  ],
+
+  "technology_mapping": {
+    "pv": [
+      "EEG_FEED_IN",
+      "ZERO_VAT_PV",
+      "KFW_270"
+    ],
+
+    "battery": [
+      "ZERO_VAT_PV",
+      "KFW_270"
+    ],
+
+    "heat_pump": [
+      "BEG_HEAT_PUMP"
+    ],
+
+    "ev_charger": [
+      "KFW_270"
+    ]
+  },
+
+  "eligibility_rules": [
+    {
+      "rule_id": "FED_001",
+
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+
+      "eligible_for": [
+        "EEG_FEED_IN",
+        "ZERO_VAT_PV"
+      ]
+    },
+
+    {
+      "rule_id": "FED_002",
+
+      "if": {
+        "battery_storage": true
+      },
+
+      "eligible_for": [
+        "KFW_270",
+        "ZERO_VAT_PV"
+      ]
+    },
+
+    {
+      "rule_id": "FED_003",
+
+      "if": {
+        "heat_pump": true
+      },
+
+      "eligible_for": [
+        "BEG_HEAT_PUMP"
+      ]
+    }
+  ],
+
+  "required_documents": [
+    {
+      "document": "market_master_data_registration"
+    },
+
+    {
+      "document": "grid_connection_confirmation"
+    },
+
+    {
+      "document": "installation_invoice"
+    },
+
+    {
+      "document": "technical_specification"
+    },
+
+    {
+      "document": "ownership_proof"
+    }
+  ],
+
+  "decision_engine_questions": [
+    "What federal subsidies are available?",
+    "Can I receive EEG remuneration?",
+    "Do I qualify for 0% VAT?",
+    "Can I finance my PV system through KfW?",
+    "Are batteries eligible for incentives?",
+    "What documents are required?"
+  ]
+}

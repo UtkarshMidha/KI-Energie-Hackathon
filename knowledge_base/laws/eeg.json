@@ -1,0 +1,229 @@
+{
+  "metadata": {
+    "law_id": "EEG",
+    "law_name": "Erneuerbare-Energien-Gesetz",
+    "english_name": "Renewable Energy Sources Act",
+    "jurisdiction": "Germany",
+    "purpose": "Promote renewable electricity generation and integration",
+    "knowledge_base_version": "1.0"
+  },
+
+  "objectives": {
+    "renewable_share_target_2030": 80,
+    "sector": "electricity",
+    "principle": "renewable_expansion_in_public_interest"
+  },
+
+  "definitions": [
+    {
+      "id": "renewable_energy",
+      "sources": [
+        "solar",
+        "wind",
+        "hydro",
+        "biomass",
+        "geothermal"
+      ]
+    },
+    {
+      "id": "pv_system",
+      "description": "Photovoltaic electricity generation installation"
+    },
+    {
+      "id": "grid_operator",
+      "description": "Operator of public electricity network"
+    },
+    {
+      "id": "direct_marketing",
+      "description": "Sale of electricity directly on the electricity market"
+    },
+    {
+      "id": "market_premium",
+      "description": "EEG support mechanism for directly marketed electricity"
+    },
+    {
+      "id": "feed_in_tariff",
+      "description": "Guaranteed remuneration for eligible renewable electricity"
+    },
+    {
+      "id": "tenant_electricity",
+      "description": "Renewable electricity supplied directly to tenants"
+    },
+    {
+      "id": "self_consumption",
+      "description": "Electricity produced and consumed by the same operator"
+    }
+  ],
+
+  "grid_connection_rules": [
+    {
+      "rule_id": "EEG_GRID_001",
+      "topic": "priority_connection",
+      "requirement": {
+        "grid_connection_priority": true
+      }
+    },
+    {
+      "rule_id": "EEG_GRID_002",
+      "topic": "priority_dispatch",
+      "requirement": {
+        "renewable_electricity_priority": true
+      }
+    },
+    {
+      "rule_id": "EEG_GRID_003",
+      "topic": "network_expansion",
+      "requirement": {
+        "grid_operator_must_expand_when_necessary": true
+      }
+    }
+  ],
+
+  "feed_in_remuneration": [
+    {
+      "rule_id": "EEG_PAY_001",
+      "topic": "feed_in_tariff",
+      "requirement": {
+        "remuneration_available": true
+      }
+    },
+    {
+      "rule_id": "EEG_PAY_002",
+      "topic": "remuneration_period",
+      "requirement": {
+        "duration_years": 20
+      }
+    },
+    {
+      "rule_id": "EEG_PAY_003",
+      "topic": "technology_specific_support",
+      "requirement": {
+        "support_differs_by_technology": true
+      }
+    }
+  ],
+
+  "direct_marketing": [
+    {
+      "rule_id": "EEG_DM_001",
+      "topic": "market_premium_model",
+      "requirement": {
+        "market_premium_available": true
+      }
+    },
+    {
+      "rule_id": "EEG_DM_002",
+      "topic": "market_integration",
+      "requirement": {
+        "renewables_can_sell_on_market": true
+      }
+    }
+  ],
+
+  "self_consumption_rules": [
+    {
+      "rule_id": "EEG_SELF_001",
+      "topic": "self_consumption",
+      "requirement": {
+        "allowed": true
+      }
+    },
+    {
+      "rule_id": "EEG_SELF_002",
+      "topic": "surplus_feed_in",
+      "requirement": {
+        "surplus_can_be_exported": true
+      }
+    }
+  ],
+
+  "tenant_electricity": [
+    {
+      "rule_id": "EEG_MIET_001",
+      "topic": "tenant_electricity",
+      "requirement": {
+        "supported": true
+      }
+    },
+    {
+      "rule_id": "EEG_MIET_002",
+      "topic": "tenant_electricity_bonus",
+      "requirement": {
+        "surcharge_possible": true
+      }
+    }
+  ],
+
+  "pv_specific_rules": [
+    {
+      "rule_id": "EEG_PV_001",
+      "topic": "rooftop_pv",
+      "requirement": {
+        "eligible_for_eeg_support": true
+      }
+    },
+    {
+      "rule_id": "EEG_PV_002",
+      "topic": "full_feed_in",
+      "requirement": {
+        "special_remuneration_possible": true
+      }
+    },
+    {
+      "rule_id": "EEG_PV_003",
+      "topic": "excess_feed_in",
+      "requirement": {
+        "remuneration_possible": true
+      }
+    }
+  ],
+
+  "auction_system": [
+    {
+      "rule_id": "EEG_AUC_001",
+      "topic": "renewable_auctions",
+      "requirement": {
+        "auction_based_support": true
+      }
+    }
+  ],
+
+  "negative_price_rules": [
+    {
+      "rule_id": "EEG_NEG_001",
+      "topic": "negative_market_prices",
+      "condition": {
+        "electricity_price": "negative"
+      },
+      "effect": {
+        "special_remuneration_rules_apply": true
+      }
+    }
+  ],
+
+  "exceptions": [
+    {
+      "exception_id": "EEG_EX_001",
+      "type": "ineligible_installation"
+    },
+    {
+      "exception_id": "EEG_EX_002",
+      "type": "missing_registration"
+    },
+    {
+      "exception_id": "EEG_EX_003",
+      "type": "non_compliant_metering"
+    }
+  ],
+
+  "decision_engine_questions": [
+    "Can I receive EEG remuneration?",
+    "Can I export excess electricity?",
+    "Can I consume my own solar power?",
+    "Do renewables get priority grid connection?",
+    "Can I participate in direct marketing?",
+    "Can my tenants buy electricity from my PV system?",
+    "Is a market premium available?",
+    "What happens during negative electricity prices?"
+  ]
+}

@@ -1,0 +1,256 @@
+{
+  "metadata": {
+    "id": "BATTERY_RULES",
+    "name": "Battery Storage Design Rules",
+    "version": "1.0",
+    "jurisdiction": "Germany"
+  },
+
+  "definitions": [
+    {
+      "id": "battery_storage",
+      "description": "Electrical energy storage system"
+    },
+    {
+      "id": "usable_capacity",
+      "unit": "kWh"
+    },
+    {
+      "id": "depth_of_discharge",
+      "abbreviation": "DoD"
+    },
+    {
+      "id": "round_trip_efficiency",
+      "unit": "%"
+    }
+  ],
+
+  "battery_chemistries": [
+    {
+      "type": "LFP",
+      "full_name": "Lithium Iron Phosphate",
+      "recommended": true,
+      "advantages": [
+        "high_cycle_life",
+        "high_safety",
+        "thermal_stability"
+      ]
+    },
+    {
+      "type": "NMC",
+      "full_name": "Nickel Manganese Cobalt",
+      "recommended": true,
+      "advantages": [
+        "high_energy_density"
+      ]
+    }
+  ],
+
+  "sizing_rules": [
+    {
+      "rule_id": "BAT_SIZE_001",
+      "description": "Simple sizing rule",
+      "formula": "battery_kwh = pv_kwp"
+    },
+    {
+      "rule_id": "BAT_SIZE_002",
+      "description": "Conservative sizing",
+      "formula": "battery_kwh = pv_kwp * 0.8"
+    },
+    {
+      "rule_id": "BAT_SIZE_003",
+      "description": "Large self-consumption optimization",
+      "formula": "battery_kwh = pv_kwp * 1.2"
+    }
+  ],
+
+  "recommendation_rules": [
+    {
+      "rule_id": "REC_001",
+      "if": {
+        "annual_consumption_kwh": {
+          "lt": 2500
+        }
+      },
+      "recommendation": {
+        "battery_recommended": false
+      }
+    },
+    {
+      "rule_id": "REC_002",
+      "if": {
+        "annual_consumption_kwh": {
+          "gte": 2500,
+          "lt": 5000
+        }
+      },
+      "recommendation": {
+        "battery_recommended": true
+      }
+    },
+    {
+      "rule_id": "REC_003",
+      "if": {
+        "annual_consumption_kwh": {
+          "gte": 5000
+        }
+      },
+      "recommendation": {
+        "battery_recommended": true,
+        "priority": "high"
+      }
+    }
+  ],
+
+  "coupling_rules": [
+    {
+      "rule_id": "COUPLE_001",
+      "if": {
+        "new_installation": true
+      },
+      "recommended": {
+        "coupling_type": "dc_coupled"
+      }
+    },
+    {
+      "rule_id": "COUPLE_002",
+      "if": {
+        "retrofit_existing_pv": true
+      },
+      "recommended": {
+        "coupling_type": "ac_coupled"
+      }
+    }
+  ],
+
+  "backup_power_rules": [
+    {
+      "rule_id": "BACKUP_001",
+      "if": {
+        "backup_required": true
+      },
+      "requirement": {
+        "backup_capable_inverter": true
+      }
+    },
+    {
+      "rule_id": "BACKUP_002",
+      "if": {
+        "whole_house_backup": true
+      },
+      "requirement": {
+        "automatic_transfer_switch": true
+      }
+    }
+  ],
+
+  "economic_rules": [
+    {
+      "rule_id": "ECO_001",
+      "if": {
+        "electricity_price_high": true
+      },
+      "effect": {
+        "battery_economics_improved": true
+      }
+    },
+    {
+      "rule_id": "ECO_002",
+      "if": {
+        "self_consumption_target": {
+          "gte": 60
+        }
+      },
+      "effect": {
+        "battery_recommended": true
+      }
+    }
+  ],
+
+  "performance_parameters": {
+    "minimum_cycle_life": 6000,
+    "recommended_cycle_life": 8000,
+    "minimum_efficiency_percent": 90,
+    "recommended_efficiency_percent": 94,
+    "recommended_depth_of_discharge_percent": 90
+  },
+
+  "smart_grid_rules": [
+    {
+      "rule_id": "GRID_001",
+      "source": "EnWG_14A",
+      "if": {
+        "battery_storage": true
+      },
+      "effect": {
+        "section_14a_relevant": true
+      }
+    },
+    {
+      "rule_id": "GRID_002",
+      "source": "MsbG",
+      "if": {
+        "battery_storage": true
+      },
+      "effect": {
+        "smart_meter_integration_recommended": true
+      }
+    }
+  ],
+
+  "battery_classes": [
+    {
+      "class": "small",
+      "capacity_kwh": {
+        "max": 5
+      }
+    },
+    {
+      "class": "medium",
+      "capacity_kwh": {
+        "min": 5,
+        "max": 15
+      }
+    },
+    {
+      "class": "large",
+      "capacity_kwh": {
+        "min": 15
+      }
+    }
+  ],
+
+  "pv_battery_mapping": [
+    {
+      "pv_kwp": 5,
+      "recommended_battery_kwh": 5
+    },
+    {
+      "pv_kwp": 8,
+      "recommended_battery_kwh": 8
+    },
+    {
+      "pv_kwp": 10,
+      "recommended_battery_kwh": 10
+    },
+    {
+      "pv_kwp": 15,
+      "recommended_battery_kwh": 15
+    },
+    {
+      "pv_kwp": 20,
+      "recommended_battery_kwh": 20
+    }
+  ],
+
+  "decision_engine_questions": [
+    "Do I need a battery?",
+    "What battery size is recommended?",
+    "Should I choose AC or DC coupling?",
+    "Is backup power possible?",
+    "Which battery chemistry is best?",
+    "How many kWh should my battery have?",
+    "Will a battery improve self-consumption?",
+    "Does my battery affect smart meter requirements?"
+  ]
+}

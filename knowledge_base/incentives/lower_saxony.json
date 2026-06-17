@@ -1,0 +1,180 @@
+{
+  "metadata": {
+    "id": "LOWER_SAXONY_INCENTIVES",
+    "name": "Lower Saxony Energy Incentives",
+    "jurisdiction": "Lower Saxony",
+    "version": "2026"
+  },
+
+  "state_profile": {
+    "state": "Lower Saxony",
+    "pv_mandate_active": true,
+    "statewide_private_pv_grant_available": false,
+    "primary_support_sources": [
+      "federal_programs",
+      "municipal_programs",
+      "nbank_business_programs"
+    ]
+  },
+
+  "historical_programs": [
+    {
+      "program_id": "NBANK_PV_BATTERY_2021",
+      "name": "Photovoltaik (PV) - Batteriespeicher",
+      "provider": "NBank",
+      "status": "expired",
+      "target_group": [
+        "homeowners",
+        "companies",
+        "municipalities"
+      ],
+      "historical_benefits": {
+        "battery_subsidy_percent": 40
+      }
+    }
+  ],
+
+  "current_programs": [
+    {
+      "program_id": "NDS_PV_MANDATE",
+      "name": "Solarpflicht Niedersachsen",
+      "type": "regulatory",
+      "status": "active",
+      "effective_date": "2025-01-01",
+      "requirements": {
+        "new_buildings_over_50m2": true,
+        "major_roof_renovations": true
+      }
+    },
+
+    {
+      "program_id": "NBANK_CLIMATE_EFFICIENCY",
+      "provider": "NBank",
+      "status": "active",
+      "target_group": [
+        "sme",
+        "public_buildings",
+        "energy_cooperatives",
+        "municipal_companies"
+      ],
+      "category": [
+        "energy_efficiency",
+        "climate_protection",
+        "electrification"
+      ]
+    }
+  ],
+
+  "municipal_funding_available": true,
+
+  "municipal_categories": [
+    {
+      "category": "rooftop_pv"
+    },
+    {
+      "category": "balcony_pv"
+    },
+    {
+      "category": "battery_storage"
+    },
+    {
+      "category": "green_roof_plus_pv"
+    },
+    {
+      "category": "facade_pv"
+    }
+  ],
+
+  "eligibility_rules": [
+    {
+      "rule_id": "NDS_001",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "eligible_for": [
+        "federal_incentives",
+        "municipal_incentives"
+      ]
+    },
+
+    {
+      "rule_id": "NDS_002",
+      "if": {
+        "building_type": "commercial"
+      },
+      "eligible_for": [
+        "nbank_business_programs"
+      ]
+    },
+
+    {
+      "rule_id": "NDS_003",
+      "if": {
+        "building_type": "industrial"
+      },
+      "eligible_for": [
+        "nbank_business_programs"
+      ]
+    },
+
+    {
+      "rule_id": "NDS_004",
+      "if": {
+        "energy_cooperative": true
+      },
+      "eligible_for": [
+        "climate_protection_programs"
+      ]
+    }
+  ],
+
+  "braunschweig_specific": {
+    "municipal_support_possible": true,
+    "categories": [
+      "balcony_pv",
+      "vertical_pv",
+      "community_energy"
+    ]
+  },
+
+  "hannover_examples": {
+    "proklima_region": true,
+    "supported_categories": [
+      "rooftop_pv",
+      "battery_storage",
+      "facade_pv",
+      "green_roof_pv"
+    ]
+  },
+
+  "application_requirements": [
+    {
+      "requirement": "apply_before_project_start"
+    },
+    {
+      "requirement": "ownership_or_usage_right"
+    },
+    {
+      "requirement": "technical_documentation"
+    },
+    {
+      "requirement": "installer_quote"
+    },
+    {
+      "requirement": "grid_connection_documents_if_required"
+    }
+  ],
+
+  "decision_engine_questions": [
+    "Are there Lower Saxony subsidies for PV?",
+    "Is the NBank battery subsidy still active?",
+    "What incentives exist in Lower Saxony?",
+    "Can I combine state and federal programs?",
+    "Does Braunschweig offer solar incentives?",
+    "Are there incentives for businesses?",
+    "Are there incentives for energy cooperatives?",
+    "Do I need to apply before installation?"
+  ]
+}

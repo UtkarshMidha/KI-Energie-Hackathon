@@ -1,0 +1,280 @@
+{
+  "metadata": {
+    "name": "PV Eligibility Rules",
+    "version": "1.0",
+    "jurisdiction": "Germany",
+    "state": "Lower Saxony"
+  },
+
+  "rules": [
+    {
+      "rule_id": "ELIG_PV_001",
+      "category": "installation",
+      "description": "Basic rooftop PV eligibility",
+      "if": {
+        "roof_exists": true
+      },
+      "eligible_for": [
+        "pv_installation"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_PV_002",
+      "category": "installation",
+      "description": "Roof area sufficient",
+      "if": {
+        "roof_area_m2": {
+          "gte": 20
+        }
+      },
+      "eligible_for": [
+        "standard_residential_pv"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_PV_003",
+      "category": "installation",
+      "description": "Solar exposure acceptable",
+      "if": {
+        "roof_orientation": {
+          "in": [
+            "south",
+            "south_east",
+            "south_west",
+            "east",
+            "west"
+          ]
+        }
+      },
+      "eligible_for": [
+        "economically_viable_pv"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_EEG_001",
+      "category": "eeg",
+      "description": "Feed-in remuneration",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "eligible_for": [
+        "eeg_feed_in_remuneration"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_EEG_002",
+      "category": "eeg",
+      "description": "Self-consumption",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "eligible_for": [
+        "self_consumption"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_EEG_003",
+      "category": "eeg",
+      "description": "Surplus feed-in",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "eligible_for": [
+        "surplus_feed_in"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_EEG_004",
+      "category": "tenant_electricity",
+      "if": {
+        "building_type": {
+          "in": [
+            "multi_family_house",
+            "apartment_building"
+          ]
+        }
+      },
+      "eligible_for": [
+        "tenant_electricity_model"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_MSBG_001",
+      "category": "smart_meter",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 7
+        }
+      },
+      "eligible_for": [
+        "intelligent_metering_system"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_MSBG_002",
+      "category": "smart_meter",
+      "if": {
+        "annual_consumption_kwh": {
+          "gt": 6000
+        }
+      },
+      "eligible_for": [
+        "mandatory_smart_meter_rollout"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_BATTERY_001",
+      "category": "battery",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "eligible_for": [
+        "battery_storage"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_BATTERY_002",
+      "category": "battery",
+      "if": {
+        "annual_consumption_kwh": {
+          "gte": 3000
+        }
+      },
+      "eligible_for": [
+        "economically_reasonable_battery"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_HP_001",
+      "category": "heat_pump",
+      "if": {
+        "building_type": {
+          "in": [
+            "single_family_house",
+            "semi_detached_house",
+            "multi_family_house"
+          ]
+        }
+      },
+      "eligible_for": [
+        "heat_pump_integration"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_EV_001",
+      "category": "ev_charger",
+      "if": {
+        "parking_space_available": true
+      },
+      "eligible_for": [
+        "ev_charger_installation"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_EV_002",
+      "category": "ev_charger",
+      "if": {
+        "pv_capacity_kw": {
+          "gte": 5
+        }
+      },
+      "eligible_for": [
+        "solar_ev_charging"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_NBAUO_001",
+      "category": "solar_mandate",
+      "if": {
+        "building_type": "new_building",
+        "roof_area_m2": {
+          "gte": 50
+        }
+      },
+      "eligible_for": [
+        "nbauo_solar_mandate"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_NBAUO_002",
+      "category": "solar_mandate_exception",
+      "if": {
+        "technical_impossibility": true
+      },
+      "eligible_for": [
+        "solar_mandate_exemption"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_NBAUO_003",
+      "category": "solar_mandate_exception",
+      "if": {
+        "economic_unreasonableness": true
+      },
+      "eligible_for": [
+        "solar_mandate_exemption"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_GRID_001",
+      "category": "grid_connection",
+      "if": {
+        "pv_capacity_kw": {
+          "gt": 0
+        }
+      },
+      "eligible_for": [
+        "grid_connection_request"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_GRID_002",
+      "category": "battery_grid_connection",
+      "if": {
+        "battery_storage": true
+      },
+      "eligible_for": [
+        "battery_grid_connection"
+      ]
+    },
+
+    {
+      "rule_id": "ELIG_PARKING_001",
+      "category": "parking_solar",
+      "if": {
+        "parking_spaces": {
+          "gt": 25
+        }
+      },
+      "eligible_for": [
+        "parking_solar_requirement_check"
+      ]
+    }
+  ]
+}
